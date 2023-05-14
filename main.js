@@ -5,7 +5,9 @@ const main = function() {
   const raw = fs.readFileSync('./resource/input.txt', 'utf-8');
 
   const letters = parse(raw);
-  const toDisplay = transformText(letters);
+
+  const text = 'thisiscool';
+  const toDisplay = transformText(letters, text);
   
   console.log(toDisplay.join('\n'));
 };

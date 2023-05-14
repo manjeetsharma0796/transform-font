@@ -1,5 +1,5 @@
 const parse = function (raw) {
-  const letters = {
+  const lettersTable = {
     accumulator: [],
     b: [],
     c: [],
@@ -34,13 +34,13 @@ const parse = function (raw) {
     const splitedFirstLine = chunk(singleColumn, 4, 0);
     let currentLetter = 0;
 
-    for (const letter in letters) {
-      letters[letter].push(splitedFirstLine[currentLetter]);
+    for (const letter in lettersTable) {
+      lettersTable[letter].push(splitedFirstLine[currentLetter]);
       currentLetter++;
     }
   })
 
-  return letters
+  return lettersTable
 };
 
 const chunk = function (list, size, overlap = 0) {
@@ -52,13 +52,13 @@ const chunk = function (list, size, overlap = 0) {
   return [currentChunk].concat(chunk(remaining, size, overlap));
 };
 
-const transformText = function (letters) {
+const transformText = function (lettersTable, text) {
   const transformed = [];
-  const letsee = 'thisiscool'.trim().split('');
+  const letters = text.trim().split('');
 
   for (let currentLine = 0; currentLine < 5; currentLine++) {
-    let accumulator = letsee.reduce(function (context, char) {
-       return context.concat(letters[char][currentLine]);
+    let accumulator = letters.reduce(function (context, char) {
+       return context.concat(lettersTable[char][currentLine]);
     },'');
     
     transformed.push(accumulator);
