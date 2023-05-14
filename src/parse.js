@@ -1,6 +1,6 @@
 const parse = function (raw) {
   const lettersTable = {
-    accumulator: [],
+    a: [],
     b: [],
     c: [],
     d: [],
@@ -25,7 +25,7 @@ const parse = function (raw) {
     w: [],
     x: [],
     y: [],
-    currentLine: [],
+    z: [],
   };
 
   raw.split('\n').forEach(function (singleColumn) {
