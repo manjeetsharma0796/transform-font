@@ -6,7 +6,7 @@ const main = function() {
 
   const letters = parse(raw);
 
-  const text = 'thisiscool';
+  const text = process.argv[2].toLocaleLowerCase();
   const toDisplay = transformText(letters, text);
   
   console.log(toDisplay.join('\n'));

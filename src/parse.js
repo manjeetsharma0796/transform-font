@@ -1,5 +1,5 @@
 const parse = function (raw) {
-  const lettersTable = {
+  const lookUp = {
     a: [],
     b: [],
     c: [],
@@ -28,19 +28,19 @@ const parse = function (raw) {
     z: [],
   };
 
-  raw.split('\n').forEach(function (singleColumn) {
-    ;
-
-    const splitedFirstLine = chunk(singleColumn, 4, 0);
+  const lines = raw.split('\n');
+  
+  lines.forEach(function (singleColumn) {
+    const splitedFirstLine = chunk(singleColumn, 4);
     let currentLetter = 0;
 
-    for (const letter in lettersTable) {
-      lettersTable[letter].push(splitedFirstLine[currentLetter]);
+    for (const letter in lookUp) {
+      lookUp[letter].push(splitedFirstLine[currentLetter]);
       currentLetter++;
     }
-  })
+  });
 
-  return lettersTable
+  return lookUp;
 };
 
 const chunk = function (list, size, overlap = 0) {
@@ -52,13 +52,13 @@ const chunk = function (list, size, overlap = 0) {
   return [currentChunk].concat(chunk(remaining, size, overlap));
 };
 
-const transformText = function (lettersTable, text) {
+const transformText = function (lookUp, text) {
   const transformed = [];
   const letters = text.trim().split('');
 
   for (let currentLine = 0; currentLine < 5; currentLine++) {
     let accumulator = letters.reduce(function (context, char) {
-       return context.concat(lettersTable[char][currentLine]);
+       return context.concat(lookUp[char][currentLine]);
     },'');
     
     transformed.push(accumulator);
